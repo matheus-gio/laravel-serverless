@@ -1,0 +1,18 @@
+APP_NAME: ${self:custom.project-name}
+APP_ENV: local
+APP_KEY: ${self:custom.app-key.${opt:stage, self:provider.stage}}
+APP_DEBUG: ${self:custom.app-debug.${opt:stage, self:provider.stage}}
+
+LOG_CHANNEL: stderr #cloudwatch
+
+SESSION_DRIVER: dynamodb
+DYNAMODB_CACHE_TABLE: 
+          !Ref Cache
+CACHE_DRIVER: dynamodb
+
+MIX_ASSET_URL: ${self:custom.asset_url}
+
+DB_HOST: ${ssm:/DB_HOST~true}
+DB_DATABASE: ${ssm:/DB_DATABASE~true}
+DB_USERNAME: ${ssm:/DB_USERNAME~true}
+DB_PASSWORD: ${ssm:/DB_PASSWORD~true}

@@ -1,0 +1,31 @@
+project-name: aws-serverless-${self:provider.stage}
+asset-bucket: assets-${self:custom.project-name}
+
+s3Sync:
+    # Sync public dir with assets to the assets bucket
+    - bucketName: ${self:custom.asset-bucket}
+      localDir: public
+      deleteRemoved: true
+      acl: public-read
+      params: # optional
+        - index.html:
+            CacheControl: 'no-cache'
+        - "*.js":
+            CacheControl: 'public, max-age=3600' # ONE hour cache to .js
+
+asset_url: !Join
+  - ''
+  - - 'https://'
+    - !GetAtt Assets.DomainName
+
+
+app-debug:
+  prod: false
+  dev: true
+
+app-key:
+  prod: 'alksakdlas'
+  dev: base64:GjSmgL619ISNE1m3i/vn+2KyOkbL3zIyI0R479b2YaU=
+
+
+cacheDynamoDB: cache-dynamodb-${self:custom.project-name}

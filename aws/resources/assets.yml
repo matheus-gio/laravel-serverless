@@ -1,0 +1,8 @@
+Type: AWS::S3::Bucket
+Properties:
+    BucketName: ${self:custom.asset-bucket}
+    CorsConfiguration:
+        CorsRules:
+            -   AllowedHeaders: ["*"]
+                AllowedMethods: [GET]
+                AllowedOrigins: ["*"]
